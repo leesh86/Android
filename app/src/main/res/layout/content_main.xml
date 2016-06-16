@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_main">
+
+    <!--<EditText android:id="@+id/edit_message"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:hint="@string/edit_message" />-->
+
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string/button_send" />-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="30dp"
+        android:fontFamily="sans-serif"
+        android:text="@string/heading"
+        android:textColor="#f9dd0c"
+        android:textSize="40sp"
+        android:textStyle="normal|bold"
+        />
+
+    <EditText
+        android:id="@+id/full_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/full_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        />
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Email"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/Password"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <Button
+        android:id="@+id/button_sign_up"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/button_sign_up"
+        android:layout_marginTop="50dp"
+        />
+
+    <TextView
+        android:id="@+id/have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/have_account"
+        android:textColor="#6577ec"
+        android:textSize="25sp"
+        />
+
+    <TextView
+        android:id="@+id/forgot_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/forgot_password"
+        android:textColor="#6577ec"
+        android:textSize="25sp"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/dont_have_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:text="@string/dont_have_account"
+        android:textColor="#6577ec"
+        android:textSize="25sp"
+        android:visibility="invisible"
+        />
+
+
+</LinearLayout>
