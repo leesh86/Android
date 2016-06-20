@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                     isSomething = false;
                     passwordField.setError("Password is required!");
                 }
-                if (!isEmailValid(emailAddress)) {
+                if (!isEmailValid(emailAddress) && !emailAddress.toString().isEmpty()) {
                     isSomething = false;
                     Toast.makeText(getApplicationContext(), failureMsg, Toast.LENGTH_SHORT).show();
                 }

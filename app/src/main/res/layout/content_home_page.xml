@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:id="@+id/scroll_view"-->
+    <!--android:layout_width="fill_parent"-->
+    <!--android:layout_height="wrap_content">-->
+
+<com.example.lees.blabla.ScrollBounce
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroll_view"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/profile_pic"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="30dp"
-        android:fontFamily="sans-serif"
-        android:textColor="#f4ad13"
-        android:textSize="20sp"
-        android:textStyle="normal|bold" />
+        <ImageView
+            android:id="@+id/background_pic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/background" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_pic"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="-50dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/display_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="30dp"
+            android:fontFamily="sans-serif"
+            android:textColor="#f4ad13"
+            android:textSize="20sp"
+            android:textStyle="normal|bold" />
 
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/background_pic2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/background" />
+
+        <ImageView
+            android:id="@+id/background_pic3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/background" />
+
+        <ImageView
+            android:id="@+id/background_pic4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/background" />
+
+
+    </LinearLayout>
+</com.example.lees.blabla.ScrollBounce>

@@ -23,7 +23,6 @@ import android.widget.Toast;
 public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_forgot_password);
 
