@@ -118,24 +118,24 @@ public class MainActivity extends AppCompatActivity {
                     bundle.putString("name", name.toString());
                     bundle.putString("email", emailAddress.toString());
                     i.putExtras(bundle);
-                    mAuth = FirebaseAuth.getInstance();
-                    mAuthListener = new FirebaseAuth.AuthStateListener() {
-                        @Override
-                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
-                            if (user != null) {
-                                // User is signed in
-                                System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
-//                                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                            } else {
-                                // User is signed out
-                                System.out.println("onAuthStateChanged:signed_out");
-//                                Log.d(TAG, "onAuthStateChanged:signed_out");
-                            }
-                            // ...
-                        }
-                    };
-                    mAuth.createUserWithEmailAndPassword(emailAddress.toString(), password.toString());
+//                    mAuth = FirebaseAuth.getInstance();
+//                    mAuthListener = new FirebaseAuth.AuthStateListener() {
+//                        @Override
+//                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            if (user != null) {
+//                                // User is signed in
+//                                System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
+////                                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+//                            } else {
+//                                // User is signed out
+//                                System.out.println("onAuthStateChanged:signed_out");
+////                                Log.d(TAG, "onAuthStateChanged:signed_out");
+//                            }
+//                            // ...
+//                        }
+//                    };
+//                    mAuth.createUserWithEmailAndPassword(emailAddress.toString(), password.toString());
 //                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
 //                                @Override
 //                                public void onComplete(@NonNull Task<AuthResult> task) {
@@ -153,10 +153,75 @@ public class MainActivity extends AppCompatActivity {
 //                            });
                     // ...
 //                    fireBaseCreateUser(emailAddress.toString(), password.toString());
+
+
+                    try {
+                        DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
+                        dbUser.open();
+                        dbUser.addUser(emailAddress.toString(), password.toString());
+
+//                        if (dbUser.Login(emailAddress.toString(), password.toString())) {
+//                            Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+//                            startActivity(i);
+//                        } else {
+//                            Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
+//                        }
+                        dbUser.close();
+
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                     startActivity(i);
                 }
             }
         });
+
+
+        signIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View sender) {
+                boolean isSomething = true;
+                if (emailAddress.toString().isEmpty()) {
+                    isSomething = false;
+                    emailField.setError("Email address is required!");
+                }
+                if (name.toString().isEmpty()) {
+                    isSomething = false;
+                    nameField.setError("Name is required!");
+                }
+                if (password.toString().isEmpty()) {
+                    isSomething = false;
+                    passwordField.setError("Password is required!");
+                }
+                if (!isEmailValid(emailAddress) && !emailAddress.toString().isEmpty()) {
+                    isSomething = false;
+                    Toast.makeText(getApplicationContext(), failureMsg, Toast.LENGTH_SHORT).show();
+                }
+                if (isSomething == true) {
+                    Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", name.toString());
+                    bundle.putString("email", emailAddress.toString());
+                    i.putExtras(bundle);
+
+                    try {
+                        DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
+                        dbUser.open();
+
+                        if (dbUser.Login(emailAddress.toString(), password.toString())) {
+                            Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+                            startActivity(i);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
+                        }
+                        dbUser.close();
+
+                    } catch (Exception e) {
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
+
     }
 
 
