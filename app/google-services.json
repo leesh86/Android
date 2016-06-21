@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "509131238285",
+    "firebase_url": "https://firstapp-7066a.firebaseio.com",
+    "project_id": "firstapp-7066a",
+    "storage_bucket": "firstapp-7066a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:509131238285:android:feff90619faae0c5",
+        "android_client_info": {
+          "package_name": "com.example.lees.blabla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "509131238285-k8vja643j42qri8j5671slatsum5avgu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4AzYFGG-NJsmfgSM6gyoz0J93CMLucmM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

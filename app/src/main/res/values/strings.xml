@@ -19,5 +19,6 @@
     <string name="email_msg">Retrieve forgotten password for Lee\'s cool app</string>
     <string name="full_name">Enter Your Full Name</string>
     <string name="gravatar_base_url">https://www.gravatar.com/avatar/</string>
+    <string name="firebase_url">https://firstapp-7066a.firebaseio.com/</string>
 
 </resources>

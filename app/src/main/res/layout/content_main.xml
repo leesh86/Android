@@ -69,6 +69,17 @@
         android:layout_marginTop="50dp"
         />
 
+    <Button
+        android:id="@+id/button_sign_In"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/button_sign_in"
+        android:layout_marginTop="50dp"
+        android:visibility="gone"
+        />
+
+
     <TextView
         android:id="@+id/have_account"
         android:layout_width="wrap_content"
@@ -93,7 +104,7 @@
         android:text="@string/forgot_password"
         android:textColor="#6577ec"
         android:textSize="25sp"
-        android:visibility="invisible"
+        android:visibility="gone"
         />
 
     <TextView
