@@ -21,6 +21,9 @@ import android.widget.Toast;
  * Created by lees on 6/15/2016.
  */
 public class ForgotPasswordActivity extends AppCompatActivity {
+
+    private DBUserAdapter dbUser = new DBUserAdapter(ForgotPasswordActivity.this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +38,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         send.setOnClickListener(new View.OnClickListener() {
             public void onClick(View sender) {
-                Toast toast;
-                if (isEmailValid(email)) {
-                    toast = Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT);
-                    sendEmail((String)email, subject, emailMsg);
+                if (isEmailValid(email) && dbUser.doesEmailExistInDB(email.toString())==true) {
+                    Intent i = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                    startActivity(i);
+
+//                    toast = Toast.makeText(getApplicationContext(), successMsg, Toast.LENGTH_SHORT);
+//                    sendEmail((String)email, subject, emailMsg);
                 }
                 else {
-                    toast = Toast.makeText(getApplicationContext(), failureMsg, Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Wrong Email", Toast.LENGTH_SHORT).show();
                 }
-                toast.show();
             }
         });
     }

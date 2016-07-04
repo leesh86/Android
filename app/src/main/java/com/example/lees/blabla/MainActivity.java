@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
+
     public static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -95,83 +97,9 @@ public class MainActivity extends AppCompatActivity {
 
         signUp.setOnClickListener(new View.OnClickListener() {
             public void onClick(View sender) {
-                boolean isSomething = true;
-                if (emailAddress.toString().isEmpty()) {
-                    isSomething = false;
-                    emailField.setError("Email address is required!");
-                }
-                if (name.toString().isEmpty()) {
-                    isSomething = false;
-                    nameField.setError("Name is required!");
-                }
-                if (password.toString().isEmpty()) {
-                    isSomething = false;
-                    passwordField.setError("Password is required!");
-                }
-                if (!isEmailValid(emailAddress) && !emailAddress.toString().isEmpty()) {
-                    isSomething = false;
-                    Toast.makeText(getApplicationContext(), failureMsg, Toast.LENGTH_SHORT).show();
-                }
-                if (isSomething == true) {
-                    Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", name.toString());
-                    bundle.putString("email", emailAddress.toString());
-                    i.putExtras(bundle);
-//                    mAuth = FirebaseAuth.getInstance();
-//                    mAuthListener = new FirebaseAuth.AuthStateListener() {
-//                        @Override
-//                        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                            FirebaseUser user = firebaseAuth.getCurrentUser();
-//                            if (user != null) {
-//                                // User is signed in
-//                                System.out.println("onAuthStateChanged:signed_in:" + user.getUid());
-////                                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-//                            } else {
-//                                // User is signed out
-//                                System.out.println("onAuthStateChanged:signed_out");
-////                                Log.d(TAG, "onAuthStateChanged:signed_out");
-//                            }
-//                            // ...
-//                        }
-//                    };
-//                    mAuth.createUserWithEmailAndPassword(emailAddress.toString(), password.toString());
-//                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<AuthResult> task) {
-//                                    Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-//                                    // If sign in fails, display a message to the user. If sign in succeeds
-//                                    // the auth state listener will be notified and logic to handle the
-//                                    // signed in user can be handled in the listener.
-//                                    if (!task.isSuccessful()) {
-//                                        Toast.makeText(MainActivity.this, "Authentication failed.",
-//                                                Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                    // ...
-//                                }
-//                            });
-                    // ...
-//                    fireBaseCreateUser(emailAddress.toString(), password.toString());
-
-
-                    try {
-                        DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
-                        dbUser.open();
-                        dbUser.addUser(emailAddress.toString(), password.toString());
-
-//                        if (dbUser.Login(emailAddress.toString(), password.toString())) {
-//                            Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
-//                            startActivity(i);
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
-//                        }
-                        dbUser.close();
-
-                    } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                    startActivity(i);
+                boolean isFormOK = isLoginFormFilled(emailAddress.toString(), emailField, password.toString(), passwordField, name.toString(), nameField);
+                if (isFormOK == true) {
+                    addRecordToDBAndStartNextActivity(emailAddress.toString(), password.toString(), name.toString());
                 }
             }
         });
@@ -179,50 +107,83 @@ public class MainActivity extends AppCompatActivity {
 
         signIn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View sender) {
-                boolean isSomething = true;
-                if (emailAddress.toString().isEmpty()) {
-                    isSomething = false;
-                    emailField.setError("Email address is required!");
-                }
-                if (name.toString().isEmpty()) {
-                    isSomething = false;
-                    nameField.setError("Name is required!");
-                }
-                if (password.toString().isEmpty()) {
-                    isSomething = false;
-                    passwordField.setError("Password is required!");
-                }
-                if (!isEmailValid(emailAddress) && !emailAddress.toString().isEmpty()) {
-                    isSomething = false;
-                    Toast.makeText(getApplicationContext(), failureMsg, Toast.LENGTH_SHORT).show();
-                }
-                if (isSomething == true) {
-                    Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putString("name", name.toString());
-                    bundle.putString("email", emailAddress.toString());
-                    i.putExtras(bundle);
-
-                    try {
-                        DBUserAdapter dbUser = new DBUserAdapter(MainActivity.this);
-                        dbUser.open();
-
-                        if (dbUser.Login(emailAddress.toString(), password.toString())) {
-                            Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
-                            startActivity(i);
-                        } else {
-                            Toast.makeText(MainActivity.this, "Invalid Username/Password", Toast.LENGTH_LONG).show();
-                        }
-                        dbUser.close();
-
-                    } catch (Exception e) {
-                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-                    }
+                boolean isFormOK = isLoginFormFilled(emailAddress.toString(), emailField, password.toString(), passwordField, name.toString(), nameField);
+                if (isFormOK == true) {
+                    loginAndStartNextActivity(emailAddress.toString(), password.toString(), name.toString());
                 }
             }
         });
 
     }
+
+    private boolean isLoginFormFilled(String email, EditText emailField, String password, EditText passwordField, String name, EditText nameField) {
+        boolean isSomething = true;
+        if (email.isEmpty()) {
+            isSomething = false;
+            emailField.setError("Email address is required!");
+        }
+        if (name.isEmpty()) {
+            isSomething = false;
+            nameField.setError("Name is required!");
+        }
+        if (password.isEmpty()) {
+            isSomething = false;
+            passwordField.setError("Password is required!");
+        }
+        if (!isEmailValid(email) && !email.isEmpty()) {
+            isSomething = false;
+            Toast.makeText(getApplicationContext(), getString(R.string.password_failure_toast_msg), Toast.LENGTH_SHORT).show();
+        }
+        return isSomething;
+    }
+
+    private void addRecordToDBAndStartNextActivity(String email, String password, String name) {
+
+        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("email", email);
+        i.putExtras(bundle);
+
+        try {
+            dbUser.open();
+            if (!dbUser.Login(email, password)) {
+                dbUser.addUser(email, password);
+                startActivity(i);
+            } else {
+                Toast.makeText(MainActivity.this, "User is already registered", Toast.LENGTH_LONG).show();
+            }
+
+            dbUser.close();
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void loginAndStartNextActivity(String email, String password, String name) {
+        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        bundle.putString("email", email);
+        i.putExtras(bundle);
+
+        try {
+            dbUser.open();
+
+            if (dbUser.Login(email, password)) {
+                Toast.makeText(MainActivity.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
+                startActivity(i);
+            } else {
+                Toast.makeText(MainActivity.this, "Invalid Email/Password", Toast.LENGTH_LONG).show();
+            }
+            dbUser.close();
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 
     @Override

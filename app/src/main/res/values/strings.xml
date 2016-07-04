@@ -20,5 +20,8 @@
     <string name="full_name">Enter Your Full Name</string>
     <string name="gravatar_base_url">https://www.gravatar.com/avatar/</string>
     <string name="firebase_url">https://firstapp-7066a.firebaseio.com/</string>
+    <string name="reset_password">Reset Your Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="repeat_new_password">Repeat New Password</string>
 
 </resources>
