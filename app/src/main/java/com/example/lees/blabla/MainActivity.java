@@ -1,10 +1,13 @@
 package com.example.lees.blabla;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -36,6 +39,49 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
+    TextView haveAccount = null;
+    Button signUp = null;
+    Button signIn = null;
+    TextView noAccount = null;
+    TextView forgotPassword = null;
+    //        final LinearLayout ll = null;
+    CharSequence emailAddress = null;
+    EditText emailField = null;
+    String failureMsg = null;
+    CharSequence name = null;
+    EditText nameField = null;
+    CharSequence password = null;
+    EditText passwordField = null;
+
+
+    //  create a textWatcher member
+    private TextWatcher mTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            // check Fields For Empty Values
+            checkFieldsForEmptyValues();
+        }
+    };
+
+    void checkFieldsForEmptyValues(){
+        Button signUp = (Button) findViewById(R.id.button_sign_up);
+
+        if(emailAddress.toString().equals("")|| name.toString().equals("") || password.toString().equals("")){
+            signUp.setEnabled(false);
+        } else {
+            signUp.setEnabled(true);
+          //  signUp.setBackgroundColor(Color.parseColor("#BBDEFB"));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,20 +99,26 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
-        final TextView haveAccount = (TextView) findViewById(R.id.have_account);
-        final Button signUp = (Button) findViewById(R.id.button_sign_up);
-        final Button signIn = (Button) findViewById(R.id.button_sign_In);
-        final TextView noAccount = (TextView) findViewById(R.id.dont_have_account);
-        final TextView forgotPassword = (TextView) findViewById(R.id.forgot_password);
+        haveAccount = (TextView) findViewById(R.id.have_account);
+        signUp = (Button) findViewById(R.id.button_sign_up);
+        signIn = (Button) findViewById(R.id.button_sign_In);
+        noAccount = (TextView) findViewById(R.id.dont_have_account);
+        forgotPassword = (TextView) findViewById(R.id.forgot_password);
 //        final LinearLayout ll = (LinearLayout)findViewById(R.id.linear_layout);
-        final CharSequence emailAddress = ((EditText) findViewById(R.id.email)).getText();
-        final EditText emailField = ((EditText) findViewById(R.id.email));
-        final String failureMsg = getString(R.string.password_failure_toast_msg);
-        final CharSequence name = ((EditText) findViewById(R.id.full_name)).getText();
-        final EditText nameField = ((EditText) findViewById(R.id.full_name));
-        final CharSequence password = ((EditText) findViewById(R.id.password)).getText();
-        final EditText passwordField = ((EditText) findViewById(R.id.password));
+        emailAddress = ((EditText) findViewById(R.id.email)).getText();
+        emailField = ((EditText) findViewById(R.id.email));
+        failureMsg = getString(R.string.password_failure_toast_msg);
+        name = ((EditText) findViewById(R.id.full_name)).getText();
+        nameField = ((EditText) findViewById(R.id.full_name));
+        password = ((EditText) findViewById(R.id.password)).getText();
+        passwordField = ((EditText) findViewById(R.id.password));
 
+        // set listenerts for text fields
+        nameField.addTextChangedListener(mTextWatcher);
+        emailField.addTextChangedListener(mTextWatcher);
+        passwordField.addTextChangedListener(mTextWatcher);
+        // run once to disable if empty
+        checkFieldsForEmptyValues();
 
         haveAccount.setOnClickListener(new View.OnClickListener() {
             public void onClick(View sender) {
